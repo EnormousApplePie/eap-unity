@@ -8,7 +8,7 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    public delegate void EnemySpawnedEvent(Interactable spawnedEnemy);
+    public delegate void EnemySpawnedEvent(Enemy spawnedEnemy);
     public static EnemySpawnedEvent EnemySpawned;
     public delegate void NewSpawnerEvent(Spawner newSpawner);
     public static NewSpawnerEvent NewSpawner;
@@ -34,7 +34,7 @@ public class Spawner : MonoBehaviour
         
     }
 
-    void SpawnEnemies(int count)
+    public void SpawnEnemies(int count)
     {
         
         for(int i = 0; i < count; ++i)
@@ -45,8 +45,16 @@ public class Spawner : MonoBehaviour
         }
     }
     
-    void SpawnEnemy(float x, float z)
+    public void SpawnEnemy(float x, float z)
     {
-        Instantiate(spawnerType, new Vector3(x, transform.position.y, z), Quaternion.identity);
+        GameObject spawnedEnemy = Instantiate(spawnerType, new Vector3(x, transform.position.y, z), Quaternion.identity);
+        Enemy enemyComponent = (Enemy)spawnedEnemy.GetComponent(typeof(Enemy));
+        if(enemyComponent == null)
+        {
+            Debug.LogError("Newly spawned enemy with name \"" + spawnedEnemy.name + "\" does not have a component of type Enemy, destroying...");
+            Destroy(spawnedEnemy);
+            return;
+        }
+        EnemySpawned.Invoke(enemyComponent);
     }
 }

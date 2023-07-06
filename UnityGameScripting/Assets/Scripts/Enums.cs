@@ -24,9 +24,3 @@ public enum EnemyType
 
 }
 
-
-
-public class Enums : MonoBehaviour
-{
-    
-}

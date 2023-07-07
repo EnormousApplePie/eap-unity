@@ -5,17 +5,33 @@ using UnityEngine;
 public class Projectile : Interactable
 {
 
-    public Transform ShotBy { get; private set; }
+    public Transform shotBy = null;
+    public float speed = 0;
+
     
-    // Start is called before the first frame update
-    void Start()
+    
+    
+
+    private void FixedUpdate()
     {
-        
+        transform.position.Set(transform.position.x + speed / 50, transform.position.y, transform.position.z);
+        //if out of bounds, despawn
+        //if collision, do OnHit()
     }
 
-    // Update is called once per frame
-    void Update()
+    public static Projectile Create(Transform shotByWho, Quaternion direction, float speed)
     {
-        
+        GameObject spawnedProjectile = new GameObject();
+        Projectile projectileComponent = (Projectile)spawnedProjectile.AddComponent(typeof(Projectile));
+        spawnedProjectile.transform.rotation = direction;
+        projectileComponent.speed = speed;
+        projectileComponent.shotBy = shotByWho;
+
+        return (projectileComponent);
+    }
+
+    private bool OnHit(GameObject other)
+    {
+        //make this
     }
 }

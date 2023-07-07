@@ -7,6 +7,8 @@ public class Enemy : Interactable
 
     public delegate void EnemyKilledDelegate(Enemy killedEnemy);
     public static EnemyKilledDelegate EnemyKilledEvent;
+
+    public EnemyType enemyType = EnemyType.None;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,5 +24,15 @@ public class Enemy : Interactable
     private void EnemyKilled()
     {
         EnemyKilledEvent.Invoke(this);
+    }
+
+    private void MeeleeAttack()
+    {
+
+    }
+
+    private void RangedAttack()
+    {
+
     }
 }

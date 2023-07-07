@@ -21,6 +21,7 @@ public enum Team
 public enum EnemyType
 {
     None,
-
+    Ranged,
+    Meelee
 }
 

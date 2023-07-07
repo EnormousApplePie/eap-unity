@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : Creature
 {
+    public static PlayerController currentPlayer { get; private set; }
+
     private Camera m_Camera;
     Rigidbody rb;
     [SerializeField] float rotationSpeed = 1f;
@@ -12,6 +14,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        currentPlayer = this;
         rb = GetComponent<Rigidbody>();
         m_Camera = Camera.main;
         floorPlane = GameObject.Find("Ground");
@@ -26,11 +29,7 @@ public class PlayerController : MonoBehaviour
        
         if (Physics.Raycast(ray, out hit, Mathf.Infinity))
         {
-            Vector3 playerPos = transform.position;
-            Vector2 difference = new Vector2(hit.point.x - playerPos.x, hit.point.z - playerPos.z);
-            float rotationZ = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
-            rotationZ -= 90;
-            transform.rotation = Quaternion.Euler(0.0f, -rotationZ, 0.0f);
+            TurnToPosition(hit.point);
         }
 
         if (Input.GetKey(KeyCode.W))

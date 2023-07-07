@@ -6,8 +6,7 @@ using UnityEngine;
 public enum SpawnerType
 {
     None,
-    EnemyName,
-    Nenemyame
+    Enemy
 }
 
 public enum Team
@@ -23,5 +22,12 @@ public enum EnemyType
     None,
     Ranged,
     Meelee
+}
+
+public enum OutOfBoundsAction
+{
+    None, 
+    Despawn,
+    Center
 }
 

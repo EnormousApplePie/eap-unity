@@ -6,10 +6,13 @@ public class PlayerController : Creature
 {
     public static PlayerController currentPlayer { get; private set; }
 
+    public float projectileSpeed = 2;
+    public int projectileStrength = 10;
+
     private Camera m_Camera;
     Rigidbody rb;
     [SerializeField] float rotationSpeed = 1f;
-    [SerializeField] float movementSpeed = 20f;
+    //[SerializeField] float movementSpeed = 20f;
     GameObject floorPlane;
     // Start is called before the first frame update
     void Start()
@@ -41,6 +44,18 @@ public class PlayerController : Creature
         {
             //add some force to the rigidbody
             rb.AddForce(-transform.forward * movementSpeed);
+        }
+    }
+
+    private void Shoot()
+    {
+        RaycastHit hit;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        //ignore the ignore raycast layer
+
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+        {
+            Projectile.Create(transform, GetDirectionTowardsPoint(hit.point), projectileSpeed, projectileStrength);
         }
     }
 }

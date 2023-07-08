@@ -15,6 +15,7 @@ public class Enemy : Creature
     protected int currentMovementCooldown = 0;
 
     public int attackStrength = 10;
+    public int scoreValue = 1;
 
     protected bool isCollidingWithPlayer = false;
 

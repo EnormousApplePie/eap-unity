@@ -31,3 +31,17 @@ public enum OutOfBoundsAction
     Center
 }
 
+public enum UIElement
+{
+    None,
+    PlayButton,
+    QuitLevelButton,
+    QuitGameButton,
+    ReturnButton,
+    ScoreCounter,
+    WaveCounter,
+    GoEndlessButton,
+    NextLevelButton,
+    RestartLevelButton
+}
+

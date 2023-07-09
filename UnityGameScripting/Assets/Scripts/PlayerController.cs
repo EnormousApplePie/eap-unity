@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class PlayerController : Creature
 {
@@ -12,6 +13,8 @@ public class PlayerController : Creature
     public int currentShootCooldown = 0;
     [Range(0, 50)]
     public float acceleration = 15;
+
+    public static TextMeshProUGUI healthCounter;
 
     public AudioClip shootSound;
 
@@ -26,13 +29,14 @@ public class PlayerController : Creature
     //[SerializeField] float movementSpeed = 20f;
     GameObject floorPlane;
     // Start is called before the first frame update
-    void Start()
+    protected override void Start()
     {
         currentPlayer = this;
         rb = GetComponent<Rigidbody>();
         m_Camera = Camera.main;
         floorPlane = GameObject.Find("Ground");
         currentShootCooldown = shootCooldown;
+        base.Start();
     }
 
     // Update is called once per frame
@@ -64,6 +68,18 @@ public class PlayerController : Creature
         //shotProjectile.gameObject.layer = LayerMask.NameToLayer("Player");
         soundSource.PlayOneShot(shootSound);
     }
+
+    public override void GetHit(DamageHit hit)
+    {
+        health -= hit.Amount;
+        healthCounter.text = "health: " + health;
+        soundSource.PlayOneShot(hitSound);
+        if (health <= 0)
+        {
+            GetKilled();
+        }
+    }
+
 
 
     private void PlayerMovement()

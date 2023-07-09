@@ -42,7 +42,7 @@ public class Projectile : Interactable
         Projectile projectileComponent = spawnedProjectile.gameObject.GetComponent<Projectile>();
         if (projectileComponent == null)
         {
-            Debug.LogError("Projectile with name \"" + spawnedProjectile.name + "\" spawned without a Projectile component, creating one...");
+            Debug.Log("Projectile with name \"" + spawnedProjectile.name + "\" spawned without a Projectile component, creating one...");
             projectileComponent = (Projectile)spawnedProjectile.AddComponent(typeof(Projectile));
         }
         
@@ -82,7 +82,12 @@ public class Projectile : Interactable
     {
         if (collision.gameObject.transform == shotBy) return;
         Interactable interactableComponent = (Interactable)collision.gameObject.GetComponent(typeof(Interactable));
-        if (interactableComponent == null) return;  //don't do anything when colliding with a non-interactable object, maybe later change this to destroy the projectile
+        if (interactableComponent == null)
+        {
+            Debug.Log("Hit object with nane " + collision.gameObject.name);
+            Destroy(gameObject);
+            return;
+        } 
         if (hitsOwnTeam && interactableComponent.team == team) return; //no friendly fire
 
         if (interactableComponent is Creature creatureCollision && creatureCollision != null)
@@ -90,6 +95,6 @@ public class Projectile : Interactable
             creatureCollision.GetHit(new DamageHit(this, strength));
         }
 
-        Destroy(this);
+        Destroy(gameObject);
     }
 }

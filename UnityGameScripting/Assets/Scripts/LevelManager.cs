@@ -16,6 +16,7 @@ public class LevelManager : MonoBehaviour
 
     private TextMeshProUGUI scoreCounter;
     private TextMeshProUGUI waveCounter;
+    private TextMeshProUGUI playerHealthCounter;
 
     [Range(1, 25)]
     public int amountOfWavesInLevel = 5;
@@ -89,7 +90,7 @@ public class LevelManager : MonoBehaviour
         currentScore += killedEnemy.scoreValue;
         if (scoreCounter != null)
         {
-            scoreCounter.text = currentScore + "";
+            scoreCounter.text = "score: " + currentScore;
         }
         if(enemies.Count == 0)
         {
@@ -146,11 +147,11 @@ public class LevelManager : MonoBehaviour
         {
             if (!isEndless)
             {
-                waveCounter.text = currentWave + 1 + " / " + amountOfWavesInLevel;
+                waveCounter.text = "wave " + currentWave + 1 + " / " + amountOfWavesInLevel;
             }
             else
             {
-                waveCounter.text = currentWave + 1 + "";
+                waveCounter.text = "wave " + currentWave + 1 + "";
             }
         }
     }
@@ -170,6 +171,10 @@ public class LevelManager : MonoBehaviour
             case UIElement.WaveCounter:
                 waveCounter = addingText;
                 break;
+            case UIElement.HealthCounter:
+                playerHealthCounter = addingText;
+                PlayerController.healthCounter = addingText;
+                break;
 
 
 
@@ -179,4 +184,7 @@ public class LevelManager : MonoBehaviour
         }
     }
 
+
+
+    
 }

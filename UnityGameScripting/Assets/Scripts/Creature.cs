@@ -14,7 +14,10 @@ public class Creature : Interactable
     public AudioClip dieSound;
 
 
-
+    protected virtual void Start()
+    {
+        soundSource = transform.GetComponent<AudioSource>();
+    }
 
 
 
@@ -23,7 +26,10 @@ public class Creature : Interactable
 
     public virtual void GetHit(DamageHit hit)
     {
-        soundSource.PlayOneShot(hitSound);
+        if (soundSource != null && hitSound != null)
+        {
+            soundSource.PlayOneShot(hitSound);
+        }
         health -= hit.Amount;
         if (health <= 0)
         {
@@ -34,6 +40,10 @@ public class Creature : Interactable
     protected virtual void GetKilled()
     {
         //play a die sound that remains AFTER the object this belongs to is destroyed
+        if(soundSource != null && hitSound != null)
+        {
+            soundSource.PlayOneShot(dieSound);
+        }
         Destroy(gameObject);
     }
 }

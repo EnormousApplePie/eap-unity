@@ -7,6 +7,7 @@ public class LevelUI : MonoBehaviour
 {
     public TextMeshProUGUI scoreCounter;
     public TextMeshProUGUI waveCounter;
+    public TextMeshProUGUI healthCounter;
 
 
 
@@ -15,6 +16,7 @@ public class LevelUI : MonoBehaviour
     {
         CentralManager.RegisterUIText(scoreCounter, UIElement.ScoreCounter, true);
         CentralManager.RegisterUIText(waveCounter, UIElement.WaveCounter, true);
+        CentralManager.RegisterUIText(healthCounter, UIElement.HealthCounter, true);
     }
 
     // Update is called once per frame

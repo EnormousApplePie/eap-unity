@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Enemy : Creature
 {
-
+    protected Rigidbody rb;
     public delegate void EnemyKilledDelegate(Enemy killedEnemy);
     public static EnemyKilledDelegate EnemyKilledEvent;
 
@@ -19,10 +19,27 @@ public class Enemy : Creature
 
     protected bool isCollidingWithPlayer = false;
 
-
+    protected override void Start()
+    {
+        rb = transform.GetComponent<Rigidbody>();
+        if(rb == null)
+        {
+            rb = new Rigidbody();
+            rb.useGravity = false;
+        }
+        base.Start();
+    }
 
     private void FixedUpdate()
     {
+        if (transform.position.y != 0)
+        {
+            transform.position = new Vector3(transform.position.x, 0, transform.position.z);
+        }
+        if (PlayerController.currentPlayer == null)
+        {
+            return;
+        }
         TurnToOther(PlayerController.currentPlayer.transform);
         if (currentMovementCooldown > 0)
         {
@@ -30,7 +47,12 @@ public class Enemy : Creature
         }
         else
         {
-            transform.position.Set(transform.position.x + movementSpeed / 50, transform.position.y, transform.position.z);
+            Vector3 desiredVelocity = PlayerController.currentPlayer.transform.position - transform.position;
+            desiredVelocity.y = 0;
+            desiredVelocity.Normalize();
+            desiredVelocity *= movementSpeed;
+            rb.velocity = desiredVelocity;
+            //transform.position.Set(transform.position.x + movementSpeed / 50, transform.position.y, transform.position.z);
             if (isCollidingWithPlayer)
             {
                 PlayerController.currentPlayer.GetHit(new DamageHit(this, attackStrength));
@@ -42,14 +64,16 @@ public class Enemy : Creature
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.transform == PlayerController.currentPlayer.transform)
+        //if (collision.transform == null) return;
+        if(PlayerController.currentPlayer != null && collision.transform == PlayerController.currentPlayer.transform)
         {
             isCollidingWithPlayer = true;
         }
     }
     private void OnCollisionExit(Collision collision)
     {
-        if (collision.transform == PlayerController.currentPlayer.transform)
+        //if (collision.transform == null) return;
+        if (PlayerController.currentPlayer != null && collision.transform == PlayerController.currentPlayer.transform)
         {
             isCollidingWithPlayer = false;
         }

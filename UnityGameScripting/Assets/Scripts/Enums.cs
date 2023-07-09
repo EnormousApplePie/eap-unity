@@ -40,6 +40,7 @@ public enum UIElement
     ReturnButton,
     ScoreCounter,
     WaveCounter,
+    HealthCounter,
     GoEndlessButton,
     NextLevelButton,
     RestartLevelButton

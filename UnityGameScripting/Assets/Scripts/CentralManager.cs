@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class CentralManager : MonoBehaviour
 {
@@ -76,6 +77,15 @@ public class CentralManager : MonoBehaviour
             }
         }
     }
+    public static void LoadLevel(string levelToLoad)
+    {
+        SceneManager.LoadScene(levelToLoad, LoadSceneMode.Single);
+    }
 
-    
+    public void QuitGame()
+    {
+        Application.Quit();
+        UnityEditor.EditorApplication.isPlaying = false;
+    }
+
 }

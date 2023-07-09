@@ -2947,7 +2947,6 @@ GameObject:
   m_Component:
   - component: {fileID: 208160397}
   - component: {fileID: 208160396}
-  - component: {fileID: 208160395}
   m_Layer: 0
   m_Name: PT_Medieval_Male_Armor_Skeleton_01 (2)
   m_TagString: Untagged
@@ -2955,29 +2954,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &208160395
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 208160394}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c307f7536d42e604aa832aad432341e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  team: 0
-  health: 10
-  maxHealth: 10
-  movementSpeed: 0.5
-  soundSource: {fileID: 0}
-  hitSound: {fileID: 0}
-  dieSound: {fileID: 0}
-  enemyType: 2
-  movementCooldownOnAttack: 40
-  attackStrength: 10
-  scoreValue: 1
 --- !u!95 &208160396
 Animator:
   serializedVersion: 5
@@ -10427,7 +10403,6 @@ GameObject:
   m_Component:
   - component: {fileID: 742803826}
   - component: {fileID: 742803825}
-  - component: {fileID: 742803824}
   m_Layer: 0
   m_Name: PT_Medieval_Male_Armor_Skeleton_01 (1)
   m_TagString: Untagged
@@ -10435,29 +10410,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &742803824
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 742803823}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c307f7536d42e604aa832aad432341e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  team: 0
-  health: 10
-  maxHealth: 10
-  movementSpeed: 0.5
-  soundSource: {fileID: 0}
-  hitSound: {fileID: 0}
-  dieSound: {fileID: 0}
-  enemyType: 2
-  movementCooldownOnAttack: 40
-  attackStrength: 10
-  scoreValue: 1
 --- !u!95 &742803825
 Animator:
   serializedVersion: 5
@@ -11780,7 +11732,6 @@ GameObject:
   m_Component:
   - component: {fileID: 837230561}
   - component: {fileID: 837230560}
-  - component: {fileID: 837230559}
   m_Layer: 0
   m_Name: PT_Medieval_Male_Armor_Skeleton_01
   m_TagString: Untagged
@@ -11788,29 +11739,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &837230559
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 837230558}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c307f7536d42e604aa832aad432341e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  team: 0
-  health: 10
-  maxHealth: 10
-  movementSpeed: 0.5
-  soundSource: {fileID: 0}
-  hitSound: {fileID: 0}
-  dieSound: {fileID: 0}
-  enemyType: 2
-  movementCooldownOnAttack: 40
-  attackStrength: 10
-  scoreValue: 1
 --- !u!95 &837230560
 Animator:
   serializedVersion: 5
@@ -18707,7 +18635,7 @@ MonoBehaviour:
   shootCooldown: 10
   currentShootCooldown: 0
   acceleration: 15
-  shootSound: {fileID: 0}
+  shootSound: {fileID: 8300000, guid: ffa33f2eed1e68f409ac981f518bfa8d, type: 3}
   attackProjectile: {fileID: 4524774500688841006, guid: 39d902849ff51b04cad1b6f3dc0d83fb, type: 3}
   shootHeight: 1
   rotationSpeed: 1

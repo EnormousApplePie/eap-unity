@@ -6,25 +6,30 @@ using TMPro;
 
 public class CentralManager : MonoBehaviour
 {
-    private static CentralManager existingManager = null;
+    public static CentralManager ExistingManager { get; private set; } = null;
     private static LevelManager currentLevel = null;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        if (existingManager != null)    //check if somehow multiple central managers get created in the game (which shouldn't happen)
+        if (ExistingManager != null)    //check if somehow multiple central managers get created in the game (which shouldn't happen)
         {
             Debug.LogWarning("Multiple CentralManagers get created in the game, this should not happen. Destroying the new manager...");
             Destroy(this);
             return;
         }
         DontDestroyOnLoad(this);
-        existingManager = this;
+        ExistingManager = this;
 
     }
 
     void Update()
     {
         
+    }
+
+    public static void OnLevelCreated(LevelManager createdManager)
+    {
+        currentLevel = createdManager;
     }
 
     void OnLevelManagerDestroyed(LevelManager destroyedManager)

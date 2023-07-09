@@ -11,8 +11,8 @@ public class LevelManager : MonoBehaviour
     public delegate void LevelManagerDestroyedEvent(LevelManager destroyedManager);
     public event LevelManagerDestroyedEvent LevelManagerDestroyed;
 
-    private List<Enemy> enemies;
-    private List<Spawner> spawners;
+    private List<Enemy> enemies = new List<Enemy>();
+    private List<Spawner> spawners = new List<Spawner>();
 
     private TextMeshProUGUI scoreCounter;
     private TextMeshProUGUI waveCounter;
@@ -28,7 +28,7 @@ public class LevelManager : MonoBehaviour
 
     [Range(0, 750)]
     public int coolDownAfterWaveEnd = 100;   //in physics frames (50 per second)
-    private int currentCooldown = 0;
+    public int currentCooldown = 0;
 
     private int currentScore = 0;
 
@@ -37,13 +37,22 @@ public class LevelManager : MonoBehaviour
     private int currentWave = 0;
     private bool isEndless = false;
 
-    void Start()
+    void Awake()
     {
+        Debug.Log("An create yes");
+        if(CentralManager.ExistingManager == null)
+        {
+            GameObject managerObject = new GameObject();
+            managerObject.AddComponent<CentralManager>();
+        }
         enemies = new List<Enemy>();
         Spawner.EnemySpawned += OnEnemySpawned;
         Spawner.NewSpawner += OnNewSpawner;
         Enemy.EnemyKilledEvent += OnEnemyKilled;
-        waveCounter.text = "0 / " + amountOfWavesInLevel;
+        //waveCounter.text = "0 / " + amountOfWavesInLevel;
+        currentCooldown = coolDownAfterWaveEnd;
+        Debug.Log(currentCooldown + ", " + coolDownAfterWaveEnd);
+        CentralManager.OnLevelCreated(this);
     }
 
 
@@ -91,6 +100,7 @@ public class LevelManager : MonoBehaviour
     private void OnNewSpawner(Spawner newSpawner)
     {
         spawners.Add(newSpawner);
+        Debug.Log("Added spawner to list of usable spawners");
     }
 
     private void WaveBeaten()
@@ -107,6 +117,14 @@ public class LevelManager : MonoBehaviour
 
     private void StartWave()
     {
+        Debug.Log("spawning new wave with " + (firstWaveEnemies + currentWave * additionalEnemiesPerWave) + " enemies.");
+        if(spawners.Count == 0)
+        {
+            Debug.LogError("No spawners present while attempting to start wave of enemies");
+            currentCooldown = coolDownAfterWaveEnd;
+            return;
+        }
+        waveActive = true;
         int enemiesToSpawn = firstWaveEnemies + currentWave * additionalEnemiesPerWave;
         int remainingRandom = enemiesToSpawn % spawners.Count;
         if (enemiesToSpawn >= spawners.Count)

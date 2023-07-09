@@ -51,4 +51,15 @@ public class Interactable : MonoBehaviour
         return Quaternion.Euler(0.0f, -rotationZ, 0.0f);
     }
 
+    protected Vector3 GetDirectionTowardsPointVector3(Vector3 point)
+    {
+        Vector3 thisPos = transform.position;
+        Vector2 difference = new Vector2(point.x - thisPos.x, point.z - thisPos.z);
+        float rotationZ = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
+        rotationZ -= 90;
+        return new Vector3(0.0f, -rotationZ, 0.0f);
+    }
+
+    
+
 }

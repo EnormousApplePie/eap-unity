@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class LevelManager : MonoBehaviour
 {
@@ -13,8 +14,8 @@ public class LevelManager : MonoBehaviour
     private List<Enemy> enemies;
     private List<Spawner> spawners;
 
-    private TextMesh scoreCounter;
-    private TextMesh waveCounter;
+    private TextMeshProUGUI scoreCounter;
+    private TextMeshProUGUI waveCounter;
 
     [Range(1, 25)]
     public int amountOfWavesInLevel = 5;
@@ -46,7 +47,7 @@ public class LevelManager : MonoBehaviour
     }
 
 
-    void Update()
+    void FixedUpdate()
     {
         if (!waveActive)
         {
@@ -56,7 +57,7 @@ public class LevelManager : MonoBehaviour
                 if (currentCooldown <= 0)
                 {
                     StartWave();
-                    
+                    Debug.Log("Starting wave...");
                 }
             }
         }
@@ -141,7 +142,7 @@ public class LevelManager : MonoBehaviour
 
     }
 
-    public void RegisterUIText(TextMesh addingText, UIElement typeOfText)
+    public void RegisterUIText(TextMeshProUGUI addingText, UIElement typeOfText)
     {
         switch (typeOfText)
         {

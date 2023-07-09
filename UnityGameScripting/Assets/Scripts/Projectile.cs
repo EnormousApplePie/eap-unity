@@ -45,7 +45,7 @@ public class Projectile : Interactable
             Debug.LogError("Projectile with name \"" + spawnedProjectile.name + "\" spawned without a Projectile component, creating one...");
             projectileComponent = (Projectile)spawnedProjectile.AddComponent(typeof(Projectile));
         }
-        Debug.Log("rotation0: " + projectileComponent.transform.rotation);
+        
         projectileComponent.rb = spawnedProjectile.GetComponent<Rigidbody>();
         if (projectileComponent.rb == null)
         {
@@ -53,24 +53,28 @@ public class Projectile : Interactable
             projectileComponent.rb = spawnedProjectile.AddComponent<Rigidbody>();
             projectileComponent.rb.useGravity = false;
         }
-        Debug.Log("rotation1: " + projectileComponent.transform.rotation);
+        
+        
+        
+        
         spawnedProjectile.transform.position = new Vector3(spawnedProjectile.transform.position.x, spawnedProjectile.transform.position.y + shootHeight, spawnedProjectile.transform.position.z);
         //spawnedProjectile.transform.rotation = direction;
 
-        Debug.Log("rotation2: " + projectileComponent.transform.rotation);
+        
         spawnedProjectile.layer = shotAtWhatLayer;
-        projectileComponent.speed = speed;
         projectileComponent.shotBy = shotByWho;
         projectileComponent.strength = strength;
-        //projectileComponent.rb.AddForce(new Vector3(0, 0, speed * 10));
-        //projectileComponent.rb.velocity = new Vector3(0, 0, speed);
         Vector3 desiredVelocity = direction.normalized * speed;
-        projectileComponent.rb.velocity = desiredVelocity;
-        Debug.Log("Velocity: " + projectileComponent.rb.velocity);
-        Debug.Log("rotation3: " + projectileComponent.transform.rotation);
-        //Debug.Log(shotByWho.transform.rotation);
-        Debug.Log(direction);
-        
+        //projectileComponent.rb.velocity = desiredVelocity;
+
+
+        spawnedProjectile.transform.rotation = shotByWho.rotation;
+        Vector3 desiredVelocity2 = new Vector3(0, 0, speed);
+        projectileComponent.rb.velocity = direction.normalized * speed;
+
+
+
+
         return (projectileComponent);
     }
 

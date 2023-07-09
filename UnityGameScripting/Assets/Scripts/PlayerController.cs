@@ -48,7 +48,7 @@ public class PlayerController : Creature
             TurnToPosition(hit.point);
             if (currentShootCooldown <= 0 && Input.GetMouseButton(0))
             {
-                Shoot(hit.point);
+                Shoot(hit.point - transform.position);
             }
         }
 

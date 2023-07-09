@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class CentralManager : MonoBehaviour
 {
@@ -53,8 +54,9 @@ public class CentralManager : MonoBehaviour
             }
         }
     }
-    public static void RegisterUIText(TextMesh addingText, UIElement typeOfText, bool isForLevel)
+    public static void RegisterUIText(TextMeshProUGUI addingText, UIElement typeOfText, bool isForLevel)
     {
+        
         if (addingText == null)
         {
             Debug.LogError("UI text of type \"" + typeOfText + "\" that is null attempted to load, skipping...");

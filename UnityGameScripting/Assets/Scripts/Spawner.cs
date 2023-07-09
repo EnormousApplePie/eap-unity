@@ -25,7 +25,7 @@ public class Spawner : MonoBehaviour
 
     void Start()
     {
-        
+        NewSpawner.Invoke(this);
     }
 
     // Update is called once per frame

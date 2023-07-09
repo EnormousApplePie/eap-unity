@@ -6,6 +6,7 @@ public class Projectile : Interactable
 {
 
     public Transform shotBy = null;
+    private Rigidbody rb;
     public bool hitsOwnTeam = false;
     public float speed = 0;
     private int strength = 1;   //damage upon hit
@@ -16,24 +17,60 @@ public class Projectile : Interactable
     private void Start()
     {
         outOfBoundsAction = OutOfBoundsAction.Despawn;
+        rb = GetComponent<Rigidbody>();
+        if(rb == null)
+        {
+            Debug.LogError("Projectile with name \"" + gameObject.name + "\"spawned without a RigidBody, adding one...");
+            rb = gameObject.AddComponent<Rigidbody>();
+            rb.useGravity = false;
+        }
     }
 
     private void FixedUpdate()
     {
-        transform.position.Set(transform.position.x + speed / 50, transform.position.y, transform.position.z);
+        //transform.position.Set(transform.position.x + speed / 50, transform.position.y, transform.position.z);
         //if out of bounds, despawn
         //if collision, do OnHit()
+        //Debug.Log("Velocity: " + rb.velocity);
+        //Debug.Log(transform.position);
     }
 
-    public static Projectile Create(Transform shotByWho, Quaternion direction, float speed, int strength)
+    public static Projectile Create(GameObject whatToShoot, Transform shotByWho, int shotAtWhatLayer, Vector3 direction, float speed, float shootHeight, int strength)
     {
-        GameObject spawnedProjectile = new GameObject();
-        Projectile projectileComponent = (Projectile)spawnedProjectile.AddComponent(typeof(Projectile));
-        spawnedProjectile.transform.rotation = direction;
+        direction.y = 0;
+        GameObject spawnedProjectile = Instantiate(whatToShoot, shotByWho.position + shotByWho.forward, Quaternion.identity);
+        Projectile projectileComponent = spawnedProjectile.gameObject.GetComponent<Projectile>();
+        if (projectileComponent == null)
+        {
+            Debug.LogError("Projectile with name \"" + spawnedProjectile.name + "\" spawned without a Projectile component, creating one...");
+            projectileComponent = (Projectile)spawnedProjectile.AddComponent(typeof(Projectile));
+        }
+        Debug.Log("rotation0: " + projectileComponent.transform.rotation);
+        projectileComponent.rb = spawnedProjectile.GetComponent<Rigidbody>();
+        if (projectileComponent.rb == null)
+        {
+            Debug.LogError("Projectile with name \"" + spawnedProjectile.name + "\"spawned without a RigidBody, adding one...");
+            projectileComponent.rb = spawnedProjectile.AddComponent<Rigidbody>();
+            projectileComponent.rb.useGravity = false;
+        }
+        Debug.Log("rotation1: " + projectileComponent.transform.rotation);
+        spawnedProjectile.transform.position = new Vector3(spawnedProjectile.transform.position.x, spawnedProjectile.transform.position.y + shootHeight, spawnedProjectile.transform.position.z);
+        //spawnedProjectile.transform.rotation = direction;
+
+        Debug.Log("rotation2: " + projectileComponent.transform.rotation);
+        spawnedProjectile.layer = shotAtWhatLayer;
         projectileComponent.speed = speed;
         projectileComponent.shotBy = shotByWho;
         projectileComponent.strength = strength;
-
+        //projectileComponent.rb.AddForce(new Vector3(0, 0, speed * 10));
+        //projectileComponent.rb.velocity = new Vector3(0, 0, speed);
+        Vector3 desiredVelocity = direction.normalized * speed;
+        projectileComponent.rb.velocity = desiredVelocity;
+        Debug.Log("Velocity: " + projectileComponent.rb.velocity);
+        Debug.Log("rotation3: " + projectileComponent.transform.rotation);
+        //Debug.Log(shotByWho.transform.rotation);
+        Debug.Log(direction);
+        
         return (projectileComponent);
     }
 

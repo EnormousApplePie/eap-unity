@@ -12,5 +12,6 @@ public class PauseMenu : MonoBehaviour
     {
         CentralManager.RegisterUIButton(returnButton, UIElement.ReturnButton, true);
         CentralManager.RegisterUIButton(quitButton, UIElement.QuitLevelButton, true);
+
     }
 }

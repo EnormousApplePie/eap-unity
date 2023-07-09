@@ -9,6 +9,9 @@ public class Creature : Interactable
     [Range(0, 10f)]
     public float movementSpeed = 0.5f;
 
+    public AudioSource soundSource;
+    public AudioClip hitSound;
+    public AudioClip dieSound;
 
 
 
@@ -18,8 +21,19 @@ public class Creature : Interactable
 
 
 
-    public void GetHit(DamageHit hit)
+    public virtual void GetHit(DamageHit hit)
     {
+        soundSource.PlayOneShot(hitSound);
+        health -= hit.Amount;
+        if (health <= 0)
+        {
+            GetKilled();
+        }
+    }
 
+    protected virtual void GetKilled()
+    {
+        //play a die sound that remains AFTER the object this belongs to is destroyed
+        Destroy(gameObject);
     }
 }

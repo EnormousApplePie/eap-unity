@@ -37,7 +37,7 @@ public class Interactable : MonoBehaviour
     protected Quaternion GetDirectionTowardsOther(Transform other)
     {
         Vector3 thisPos = transform.position;
-        Vector2 difference = new Vector2(other.position.x - thisPos.x, other.position.y - thisPos.z);
+        Vector2 difference = new Vector2(other.position.x - thisPos.x, other.position.z - thisPos.z);
         float rotationZ = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
         rotationZ -= 90;
         return Quaternion.Euler(0.0f, -rotationZ, 0.0f);
@@ -45,7 +45,7 @@ public class Interactable : MonoBehaviour
     protected Quaternion GetDirectionTowardsPoint(Vector3 point)
     {
         Vector3 thisPos = transform.position;
-        Vector2 difference = new Vector2(point.x - thisPos.x, point.y - thisPos.z);
+        Vector2 difference = new Vector2(point.x - thisPos.x, point.z - thisPos.z);
         float rotationZ = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
         rotationZ -= 90;
         return Quaternion.Euler(0.0f, -rotationZ, 0.0f);

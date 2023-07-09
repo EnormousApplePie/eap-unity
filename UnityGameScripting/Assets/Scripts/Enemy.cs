@@ -55,9 +55,10 @@ public class Enemy : Creature
         }
     }
 
-    private void EnemyKilled()
+    protected override void GetKilled()
     {
         EnemyKilledEvent.Invoke(this);
+        base.GetKilled();
     }
 
     private void MeeleeAttack()

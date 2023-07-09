@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : Creature
 {
@@ -13,6 +14,7 @@ public class PlayerController : Creature
     public int currentShootCooldown = 0;
     [Range(0, 50)]
     public float acceleration = 15;
+    public GameObject dieScreenPrefab;
 
     public static TextMeshProUGUI healthCounter;
 
@@ -78,6 +80,12 @@ public class PlayerController : Creature
         {
             GetKilled();
         }
+    }
+
+    protected override void GetKilled()
+    {
+        Instantiate(dieScreenPrefab);
+        base.GetKilled();
     }
 
 

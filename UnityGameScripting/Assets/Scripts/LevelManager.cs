@@ -147,11 +147,11 @@ public class LevelManager : MonoBehaviour
         {
             if (!isEndless)
             {
-                waveCounter.text = "wave " + currentWave + 1 + " / " + amountOfWavesInLevel;
+                waveCounter.text = "wave " + (currentWave + 1) + " / " + amountOfWavesInLevel;
             }
             else
             {
-                waveCounter.text = "wave " + currentWave + 1 + "";
+                waveCounter.text = "wave " + (currentWave + 1) + "";
             }
         }
     }
